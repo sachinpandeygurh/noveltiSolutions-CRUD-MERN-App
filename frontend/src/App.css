@@ -1,0 +1,102 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.nav_bar_wrapper a{
+  padding-left: 30px;
+}
+.delete{
+  background-color: #a90b0b;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.update{
+  background-color:green;
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.inputBox{
+  display: block;
+  /* margin: 25px; */
+  padding: 7px;
+  /* width: 150px; */
+  border: 1px solid skyblue ;
+ 
+}
+.appButton{
+  margin: 25px;
+  padding: 10px;
+  width: 150px;
+  cursor: pointer;
+  background: #0d6efd;
+  transition: .8s background;
+
+}
+.appButton:hover{
+  color: #0d6efd !important;
+  border: 1px solid #0d6efd !important;
+  background: white;
+  font-weight: 600;
+
+
+}
+.logo{
+  width: 10em;
+  margin-left: -3em;
+}
+.invalidInput{
+  margin-top: -20px;
+  display: block;
+  text-align: left;
+  padding: 0 5px;
+}
+.searchProductBox{
+  left: -34.5%;
+  position: relative;
+  width: 400px;
+  /* margin: 2em; */
+  height: 40px;
+  border: 1px solid skyblue;
+  padding-left: 1em;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+.userimage{
+  width: 12em;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
