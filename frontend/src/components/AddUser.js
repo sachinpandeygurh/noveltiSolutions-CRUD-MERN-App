@@ -1,138 +1,103 @@
-import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
 
 const AddUser = () => {
-  const [userData, setUserData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    mobileNo: "",
-    address1: "",
-    address2: "",
-    state: "",
-    city: "",
-    zipCode: "",
-  });
 
-  const handleChange = (e) => {
-    setUserData({ ...userData, [e.target.name]: e.target.value });
-  };
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [category, setCategory] = useState("");
+  const [company, setCompany] = useState("");
+  const [error , setError] = useState(false)
+  const addProduct = async () => {
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add logic to handle form submission and user creation
-    console.log(userData);
+    if (!name || !price || !category || !company) {
+        setError(true)
+        return false;
+    }
+
+    const userId = JSON.parse(localStorage.getItem("user"))._id;
+
+    const userName = JSON.parse(localStorage.getItem("user")).name;
+    let result = await fetch("http://localhost:5000/addProduct", {
+      method: "POST",
+      body: JSON.stringify({ name, price, category, company, userId , userName}),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    result = await result.json();
+    console.warn(result);
+
+    
   };
+  useEffect(() => {
+    addProduct();
+  }, []);
+
 
   return (
     <div className="container mt-5">
-        <h2 className="me-5 pe-5">Add User</h2>
-    <Form className="d-flex flex-wrap" onSubmit={handleSubmit}>
-      <Form.Group className="col-12 col-md-5 m-1" controlId="firstName">
-        <Form.Control
-          type="text"
-          name="firstName"
-          value={userData.firstName}
-          onChange={handleChange}
-          placeholder="First Name"
-          required
-        />
-      </Form.Group>
+      <div className="row justify-content-center">
+        <div className="col-lg-6">
+          <div className="card">
+            <div className="card-body">
+              <h1 className="text-center">Add Product</h1>
+              <div className="form-group">
+                <input
+                  type="text"
+                  className="form-control inputBox my-3"
+                  placeholder="Product Name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+                {error && !name && <span  className="invalidInput text-danger text-left">Please enter product name</span>}
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  className="form-control inputBox my-3"
+                  placeholder="Product Price"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                />
+                {error && !price && <span  className="invalidInput text-danger text-left">Please enter product price</span>}
 
-      <Form.Group className="col-12 col-md-5 m-1" controlId="lastName">
-        <Form.Control
-          type="text"
-          name="lastName"
-          value={userData.lastName}
-          onChange={handleChange}
-          placeholder="Last Name"
-          required
-        />
-      </Form.Group>
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  className="form-control inputBox my-3"
+                  placeholder="Product Category"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                />
+                {error && !category && <span  className="invalidInput text-danger text-left">Please enter product category</span>}
 
-      <Form.Group className="col-12 col-md-5 m-1" controlId="email">
-        <Form.Control
-          type="email"
-          name="email"
-          value={userData.email}
-          onChange={handleChange}
-          placeholder="Email Id"
-          required
-        />
-      </Form.Group>
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  className="form-control inputBox my-3"
+                  placeholder="Product Company Name"
+                  value={company}
+                  onChange={(e) => setCompany(e.target.value)}
+                />
+                {error && !company && <span  className="invalidInput text-danger text-left">Please enter product company name</span>}
 
-      <Form.Group className="col-12 col-md-5 m-1" controlId="mobileNo">
-        <Form.Control
-          type="tel"
-          name="mobileNo"
-          value={userData.mobileNo}
-          onChange={handleChange}
-          placeholder="Mobile No"
-          required
-        />
-      </Form.Group>
-
-      <Form.Group className="col-12 col-md-5 m-1" controlId="address1">
-        <Form.Control
-          type="text"
-          name="address1"
-          value={userData.address1}
-          onChange={handleChange}
-          placeholder="Address 1"
-          required
-        />
-      </Form.Group>
-
-      <Form.Group className="col-12 col-md-5 m-1" controlId="address2">
-        <Form.Control
-          type="text"
-          name="address2"
-          value={userData.address2}
-          onChange={handleChange}
-          placeholder="Address 2"
-        />
-      </Form.Group>
-
-      <Form.Group className="col-12 col-md-5 m-1" controlId="state">
-        <Form.Control
-          type="text"
-          name="state"
-          value={userData.state}
-          onChange={handleChange}
-          placeholder="State"
-          required
-        />
-      </Form.Group>
-
-      <Form.Group className="col-12 col-md-5 m-1" controlId="city">
-        <Form.Control
-          type="text"
-          name="city"
-          value={userData.city}
-          onChange={handleChange}
-          placeholder="City"
-          required
-        />
-      </Form.Group>
-
-      <Form.Group className="col-12 col-md-5 m-1" controlId="zipCode">
-        <Form.Control
-          type="text"
-          name="zipCode"
-          value={userData.zipCode}
-          onChange={handleChange}
-          placeholder="Country Zip Code"
-          required
-        />
-      </Form.Group>
-
-      <div className="col-10">
-        <Button variant="primary" className="" type="submit">
-          Add User
-        </Button>
+              </div>
+              <div className="form-group">
+                <button
+                  className="form-control btn btn-primary appButton my-3"
+                  onClick={addProduct}
+                  type="button"
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </Form>
-  </div>
+    </div>
   );
 };
 
