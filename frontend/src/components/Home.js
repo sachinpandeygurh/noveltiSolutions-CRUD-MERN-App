@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const id = "123";
 
 const Home = () => {
   const [users, setUsers] = useState([]);
+  const navigave = useNavigate('')
 
   useEffect(() => {
     getUsers();
@@ -17,6 +18,23 @@ const Home = () => {
     result = await result.json();
     setUsers(result);
   };
+
+  const deleteUser= async (id)=>{
+    let result = await fetch(`http://localhost:5000/user/${id}`,{
+      method:"DELETE",
+
+    })
+    result = await result.json()
+    if(result){
+      getUsers()
+      // alert(users.name + 'deleted')
+      console.log('deleted successfully ')
+      navigave('/')
+
+    } else{
+      return false;
+    }
+  }
 
   const searchHandle = async (event)=>{
     let key = event.target.value;
@@ -89,20 +107,21 @@ const Home = () => {
               <td>{user.zipCode}</td>
               <td>
                 <Link
-                  to={`/view/${id}`}
+                  to={`/view/${user._id}`}
                   className="btn btn-sm btn-success mx-1"
                 >
                   View
                 </Link>
                 <Link
-                  to={`/update/${id}`}
+                  to={`/update/${user._id}`}
                   className="btn btn-sm btn-secondary mx-1"
                 >
                   Update
                 </Link>
                 <Link
-                  to={`/delete/${id}`}
+                  to={`/delete/${user._id}`}
                   className="btn btn-sm btn-danger mx-1"
+                  onClick={()=> deleteUser(user._id)}
                 >
                   Delete
                 </Link>
