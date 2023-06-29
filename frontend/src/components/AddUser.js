@@ -1,38 +1,57 @@
 import React, { useEffect, useState } from "react";
 
 const AddUser = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [emailId, setEmailId] = useState("");
+  const [mobileNo, setMobileNo] = useState("");
+  const [addressOne, setAddressOne] = useState("");
+  const [addressTwo, setAddressTwo] = useState("");
+  const [state, setState] = useState("");
+  const [city, setCity] = useState("");
+  const [zipCode, setZipCode] = useState("");
 
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [category, setCategory] = useState("");
-  const [company, setCompany] = useState("");
-  const [error , setError] = useState(false)
-  const addProduct = async () => {
+  const [error, setError] = useState(false);
 
-    if (!name || !price || !category || !company) {
-        setError(true)
-        return false;
+  const addUser = async () => {
+    if (
+      !firstName ||
+      !lastName ||
+      !emailId ||
+      !mobileNo ||
+      !addressOne ||
+      !addressTwo ||
+      !state ||
+      !city ||
+      !zipCode
+    ) {
+      setError(true);
+      return false;
     }
 
-    const userId = JSON.parse(localStorage.getItem("user"))._id;
-
-    const userName = JSON.parse(localStorage.getItem("user")).name;
-    let result = await fetch("http://localhost:5000/addProduct", {
+    let result = await fetch("http://localhost:5000/register", {
       method: "POST",
-      body: JSON.stringify({ name, price, category, company, userId , userName}),
+      body: JSON.stringify({
+        firstName,
+        lastName,
+        emailId,
+        mobileNo,
+        addressOne,
+        addressTwo,
+        state,
+        city,
+        zipCode,
+      }),
       headers: {
         "Content-Type": "application/json",
       },
     });
     result = await result.json();
     console.warn(result);
-
-    
   };
   useEffect(() => {
-    addProduct();
+    // addProduct();
   }, []);
-
 
   return (
     <div className="container mt-5">
@@ -40,54 +59,137 @@ const AddUser = () => {
         <div className="col-lg-6">
           <div className="card">
             <div className="card-body">
-              <h1 className="text-center">Add Product</h1>
+              <h1 className="text-center">Add New User</h1>
               <div className="form-group">
                 <input
                   type="text"
                   className="form-control inputBox my-3"
-                  placeholder="Product Name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  placeholder="User First Name"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
                 />
-                {error && !name && <span  className="invalidInput text-danger text-left">Please enter product name</span>}
+                {error && !firstName && (
+                  <span className="invalidInput text-danger text-left">
+                    Please enter user first name
+                  </span>
+                )}
               </div>
               <div className="form-group">
                 <input
                   type="text"
                   className="form-control inputBox my-3"
-                  placeholder="Product Price"
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
+                  placeholder="User Last Name"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
                 />
-                {error && !price && <span  className="invalidInput text-danger text-left">Please enter product price</span>}
-
+                {error && !lastName && (
+                  <span className="invalidInput text-danger text-left">
+                    Please enter user Last name
+                  </span>
+                )}
               </div>
               <div className="form-group">
                 <input
                   type="text"
                   className="form-control inputBox my-3"
-                  placeholder="Product Category"
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
+                  placeholder="User Email Id"
+                  value={emailId}
+                  onChange={(e) => setEmailId(e.target.value)}
                 />
-                {error && !category && <span  className="invalidInput text-danger text-left">Please enter product category</span>}
-
+                {error && !emailId && (
+                  <span className="invalidInput text-danger text-left">
+                    Please enter product category
+                  </span>
+                )}
               </div>
               <div className="form-group">
                 <input
                   type="text"
                   className="form-control inputBox my-3"
-                  placeholder="Product Company Name"
-                  value={company}
-                  onChange={(e) => setCompany(e.target.value)}
+                  placeholder="User Mobile"
+                  value={mobileNo}
+                  onChange={(e) => setMobileNo(e.target.value)}
                 />
-                {error && !company && <span  className="invalidInput text-danger text-left">Please enter product company name</span>}
-
+                {error && !mobileNo && (
+                  <span className="invalidInput text-danger text-left">
+                    Please enter product company name
+                  </span>
+                )}
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  className="form-control inputBox my-3"
+                  placeholder="User Address 1"
+                  value={addressOne}
+                  onChange={(e) => setAddressOne(e.target.value)}
+                />
+                {error && !addressOne && (
+                  <span className="invalidInput text-danger text-left">
+                    Please enter product company name
+                  </span>
+                )}
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  className="form-control inputBox my-3"
+                  placeholder="User Address 2"
+                  value={addressTwo}
+                  onChange={(e) => setAddressTwo(e.target.value)}
+                />
+                {error && !addressTwo && (
+                  <span className="invalidInput text-danger text-left">
+                    Please enter product company name
+                  </span>
+                )}
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  className="form-control inputBox my-3"
+                  placeholder="User State"
+                  value={state}
+                  onChange={(e) => setState(e.target.value)}
+                />
+                {error && !state && (
+                  <span className="invalidInput text-danger text-left">
+                    Please enter product company name
+                  </span>
+                )}
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  className="form-control inputBox my-3"
+                  placeholder="User City"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                />
+                {error && !city && (
+                  <span className="invalidInput text-danger text-left">
+                    Please enter product company name
+                  </span>
+                )}
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  className="form-control inputBox my-3"
+                  placeholder="User Country Zip Code"
+                  value={zipCode}
+                  onChange={(e) => setZipCode(e.target.value)}
+                />
+                {error && !zipCode && (
+                  <span className="invalidInput text-danger text-left">
+                    Please enter product company name
+                  </span>
+                )}
               </div>
               <div className="form-group">
                 <button
-                  className="form-control btn btn-primary appButton my-3"
-                  onClick={addProduct}
+                  className="btn btn-sm btn-primary appButton my-3"
+                  onClick={addUser}
                   type="button"
                 >
                   Submit
