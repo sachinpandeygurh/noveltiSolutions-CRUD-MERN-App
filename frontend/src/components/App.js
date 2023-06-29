@@ -8,7 +8,7 @@ import AddUser from './AddUser';
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      <BrowserRouter  rounded="true.toString()">
 <NavBar/>
 <Routes>
   <Route path="/" element={<Home/>}/>

@@ -9,6 +9,7 @@ const Home = () => {
 
   useEffect(() => {
     getUsers();
+    // searchHandle()
   }, []);
 
   const getUsers = async () => {
@@ -17,7 +18,26 @@ const Home = () => {
     setUsers(result);
   };
 
-  
+  const searchHandle = async (event)=>{
+    let key = event.target.value;
+    if (key) {
+      let result = await fetch(`http://localhost:5000/searchUsers/${key}`)
+      result = await result.json()
+
+      if(result){
+        setUsers(result)
+      }
+      else if (!result){
+        getUsers();
+      }
+      // else{
+      //   getUsers();
+
+      // }
+      
+      
+    }
+  }
 
   return (
     <div className="px-3 my-3 ">
@@ -27,7 +47,7 @@ const Home = () => {
         <input
           type="text"
           className="rounded px-2 border-1 "
-          placeholder="Search user here.."
+          placeholder="Search user here.." onChange={searchHandle}
         />
         <Link
           type="button"

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AddUser = () => {
   const [firstName, setFirstName] = useState("");
@@ -10,6 +11,7 @@ const AddUser = () => {
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
   const [zipCode, setZipCode] = useState("");
+  const navigate= useNavigate()
 
   const [error, setError] = useState(false);
 
@@ -48,9 +50,10 @@ const AddUser = () => {
     });
     result = await result.json();
     console.warn(result);
+    navigate("/")
+
   };
   useEffect(() => {
-    // addProduct();
   }, []);
 
   return (
