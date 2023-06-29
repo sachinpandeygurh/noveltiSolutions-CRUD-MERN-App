@@ -4,6 +4,7 @@ require("./db/config");
 const User = require("./db/user");
 const app = express();
 
+
 app.use(express.json());
 app.use(cors());
 
@@ -75,8 +76,12 @@ app.get("/searchUsers/:key", async (req, resp) => {
 
     resp.send(results);
   } catch (error) {
+    console.log('abhishek')
     resp.status(500).send("Internal Server Error");
   }
 });
 
+// console.log("sachin")
+// console.log("sachin")
+// console.log("sachin")
 app.listen(5000);
